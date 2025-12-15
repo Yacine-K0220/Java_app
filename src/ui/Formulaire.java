@@ -4,11 +4,18 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
+import model.User;
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author Cheikhou_yk
  */
 public class Formulaire extends javax.swing.JFrame {
+    
+    List<User> listUser = new ArrayList<>();
 
     /**
      * Creates new form Formulaire
@@ -167,14 +174,43 @@ public class Formulaire extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void valider_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valider_btnActionPerformed
-        String prenom = prenom_txt.getText();
-        String nom = nom_txt.getText();
-        String email = email_txt.getText();
-        String password = password_txt.getText();
+        String prenom = prenom_txt.getText().trim();
+        String nom = nom_txt.getText().trim();
+        String email = email_txt.getText().trim();
+        String age = age_txt.getText().trim();
+        String password = password_txt.getText().trim();
         String confirmation = confirmation_txt.getSelectedText();
         String sexe = homme_rb.isSelected()? "Homme" : "Femme";
+        
+        //Condition pour remplir tous les champs
+        if(prenom.isEmpty() || nom.isEmpty()
+                || email.isEmpty() || age.isEmpty()
+                || password.isEmpty() || confirmation.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Veuiller remplir tous les champs");
+            return;   
+                    
+        }
+        
+        //Co
+        if(password.length()<6){
+            JOptionPane.showMessageDialog(this,"Le mots de passe doit avoir minimum 6 caracteres");
+            return;
+        }
+        
+        if(!password.equals(confirmation)){
+            JOptionPane.showMessageDialog(this,"Les mots de passe doit etre identiques");
+            return;
+        }
+        
+        //Condition age
+        if(!age.matches("-?\\d+")){
+            JOptionPane.showMessageDialog(this,"L'age doit etre un entier");
+            return;
+            
+        }
+        
 // TODO add your handling code here:
     }//GEN-LAST:event_valider_btnActionPerformed
 
